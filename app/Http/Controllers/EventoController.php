@@ -58,4 +58,10 @@ class EventoController extends Controller
 
         //em caso de erros usar php artisan optimize
     }
+
+    public function show($id){
+        $evento = Evento::findOrFail($id);
+
+        return view('eventos.show', ['evento' => $evento]);
+    }
 }

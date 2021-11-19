@@ -20,6 +20,7 @@ use App\Http\Controllers\EventoController;
 // usando EventoController vindo de controllers
 Route::get('/', [EventoController::class, 'index']);
 Route::get('/eventos/criar', [EventoController::class, 'criar']);
+Route::get('/eventos/{id}', [EventoController::class, 'show']);
 Route::post('/eventos', [EventoController::class, 'store']);
 
 Route::get('/contato', [EventoController::class, 'contato']);
