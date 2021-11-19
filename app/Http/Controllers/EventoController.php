@@ -4,39 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Evento;
+
 class EventoController extends Controller
 {
     public function index(){
-        $nome = "Laravel";
-        $idade = 99;
+        $eventos = Evento::all();
 
-        $array = [1,2,3,4,5];
-        $nomes = ["João", "Maria", "José"];
-
-        return view('welcome', [
-            'nome' => $nome,
-            'idade'=> $idade,
-            'profissao' => "Vida bandida",
-            'array' => $array,
-            'nomes' => $nomes
-
-        ]);
+        return view('welcome', ['eventos' => $eventos]);
     }
 
     public function criar(){
-        return view('events.criar');
+        return view('eventos.criar');
     }
 
     public function contato(){
+        
         return view('contato');
+        
+        
     }
 
-    public function produtos(){
-        $busca = request('buscar');
-        return view('produtos', ['busca' => $busca]);
-    }
+    public function store(Request $request){
+        //echo '<script>console.log("teste")</script>';
 
-    public function produto($id){
-        return view('produto', ['id' => $id]);
+        $evento = new Evento;
+
+        //todos esses dados vem do bd
+        $evento->titulo = $request->titulo;
+        $evento->cidade = $request->cidade;
+        $evento->privado = $request->privado;
+        $evento->descricao = $request->descricao;
+
+        //salvando os dados no banco de forma persistente
+        $evento->save();
+        //ao termino é redirecinado a página principal
+        return redirect('/');
     }
 }

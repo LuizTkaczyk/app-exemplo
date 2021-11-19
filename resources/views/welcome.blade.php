@@ -6,35 +6,30 @@
 
 @section('content')
     
-    <h1>Usando o {{ $nome }}</h1>
+    <div id="search-container" class="col-md-12">
+        <h1>Busque um evento</h1>
+        <form action="">
+            <input type="text" id="search" class="form-control" placeholder="Procurar...">
+        </form>
+    </div>
 
-    <img src="/img/img1.jpg" width="400px" alt="" srcset="">
-
-    @if (10 > 5)
-    <p>Condição verdadeira</p>
-    @endif
-
-
-    <p>{{ $nome }}</p>
-
-    @if ($nome == "Maria")
-    <p>O nome é Maria</p>    
-
-    @elseif($nome == "Ana")
-    <p> O nome é {{$nome }} e tem {{$idade}} anos, e trabalha como {{$profissao}}</p>
-    @else
-    <p>O nome não é Maria</p>
-    @endif
-
-
-    @for ($i = 0; $i < count($array); $i++)
-        <p>{{ $array[$i] }}  - {{$i}} </p>
-    @endfor
-
+    <div id="events-container" class="col-md-12">
+        <h2>Próximos eventos</h2>
+        <p>Eventos dos próximos dias</p>
+        <div id="cards-container" class="row">
+            {{-- RECEBENDO OS DADOS DO BANCO DE DADOS --}}
+            @foreach ($eventos as $evento)
+                <div class="card col-md-3">
+                    <img src="/img/img1.jpg" alt="{{$evento->titulo}}">
+                    <div class="card-body">
+                        <p class="card-date">22/02/2022</p>
+                        <h5 class="card-title"> {{ $evento->titulo}}</h5>
+                        <p class="card-participants">X Parcipantes</p>
+                        <a href="#" class="btn btn-primary">Saber mais</a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
     
-    @foreach ($nomes as $nome)
-       <p> {{ $loop -> index}}</p>
-       <p> {{ $nome }}</p>
-        
-    @endforeach
 @endsection

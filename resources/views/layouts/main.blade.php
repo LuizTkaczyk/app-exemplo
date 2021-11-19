@@ -42,13 +42,11 @@
                     <li class="nav-item">
                         <a href="/" class="nav-link">Cadastrar</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/produtos" class="nav-link">Produtos</a>
-                    </li>
-                    <li class="nav-item">
+                   
+                    {{-- <li class="nav-item">
                         <a href="/contato" class="nav-link">Contato</a>
                     </li>
-                    
+                     --}}
                 </ul>
             </div>
         </nav>
