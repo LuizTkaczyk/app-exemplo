@@ -20,7 +20,7 @@
             {{-- RECEBENDO OS DADOS DO BANCO DE DADOS --}}
             @foreach ($eventos as $evento)
                 <div class="card col-md-3">
-                    <img src="/img/img1.jpg" alt="{{$evento->titulo}}">
+                    <img src="/img/eventos/{{ $evento->imagem }}" alt="{{$evento->titulo}}">
                     <div class="card-body">
                         <p class="card-date">22/02/2022</p>
                         <h5 class="card-title"> {{ $evento->titulo}}</h5>
