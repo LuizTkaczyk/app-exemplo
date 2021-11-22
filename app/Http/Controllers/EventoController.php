@@ -84,9 +84,18 @@ class EventoController extends Controller
     
 
     public function dashboard(){
+
+        
         $user = auth()->user();
+
         $eventos = $user->eventos;
-        return view('eventos.dashboard',['eventos' => $eventos]);
+
+        $eventsAsParticipant = $user->eventsAsParticipant;
+
+        return view('eventos.dashboard',
+            ['eventos' => $eventos, 'eventsasparticipant' => $eventsAsParticipant]
+        );
+
     }
 
     //função para deletar um objeto
@@ -94,4 +103,61 @@ class EventoController extends Controller
         Evento::findOrFail($id)->delete();
         return redirect('/dashboard')->with('msg', 'Evento excluído com sucesso!');
     }
+
+
+    //função de editar os eventos
+    public function edit($id){
+        $user = auth()->user();
+
+        $evento = Evento::findOrFail($id);
+
+        if($user->id != $event->user_id){
+            return redirect('/dashboard');
+        }
+
+        return view('eventos.edit', ['evento' => $evento]);
+
+    }
+
+    //metodo que atualiza o evento
+    public function update(Request $request){
+
+        $data = $request->all();
+
+        // imagem upload editada
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            $requestImagem = $request->imagem;
+
+            $extension = $requestImagem->extension();
+
+            $imagemNome = md5($requestImagem->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $request->imagem->move(public_path('img/eventos'), $imagemNome);
+
+            $data['imagem'] = $imagemNome;
+        }
+
+        Evento::findOrFail($request->id)->update($data);
+
+        return redirect('/dashboard')->with('msg', 'Evento editado com sucesso!');
+    }
+
+    //confirmando a entrada em um evento associando o id
+    public function joinEvent($id){
+        $user = auth()->user();
+        $user->eventsAsParticipant()->attach($id);
+        $evento = Evento::findOrFail($id);
+        return redirect('/dashboard')->with('msg', 'Sua presença está confirmada no evento ' . $evento->titulo);
+    }
+
+
+    //saindo de um evento
+    public function leaveEvent($id){
+        $user = auth()->user();
+        $user -> eventsAsParticipant()->detach($id);
+        $evento = Evento::findOrFail($id);
+        return redirect('/dashboard')->with('msg', 'Você saiu com sucesso do evento: ' . $evento->titulo);
+    }
+
+
 }

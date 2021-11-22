@@ -29,8 +29,16 @@ Route::get('/contato', [EventoController::class, 'contato']);
 Route::get('/dashboard', [EventoController::class, 'dashboard'])->middleware('auth');
 
 //rota para deletar um evento
-Route::delete('/eventos/{id}', [EventoController::class, 'destroy']);
+Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->middleware('auth');
 
+//rota para editar um evento
+Route::get('/eventos/edit/{id}', [EventoController::class, 'edit'])->middleware('auth');
+Route::put('/eventos/update/{id}', [EventoController::class, 'update'])->middleware('auth');
+
+//rota para participar de um evento
+Route::post('/eventos/join/{id}', [EventoController::class, 'joinEvent'])->middleware('auth');
+
+Route::delete('/eventos/leave/{id}', [EventoController::class, 'leaveEvent'])->middleware('auth');
 
 
 
