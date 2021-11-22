@@ -25,6 +25,8 @@ class EventoController extends Controller
         
     // }
 
+
+    //Função para salvar os dados no banco
     public function store(Request $request) {
         //echo '<script>console.log("teste")</script>';
 
@@ -35,6 +37,7 @@ class EventoController extends Controller
         $evento->cidade = $request->cidade;
         $evento->privado = $request->privado;
         $evento->descricao = $request->descricao;
+        $evento->items = $request->items;
 
         // imagem upload
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
@@ -59,9 +62,10 @@ class EventoController extends Controller
         //em caso de erros usar php artisan optimize
     }
 
+    // $id vem do front
     public function show($id){
         $evento = Evento::findOrFail($id);
-
+        //da pasta eventos vem a view show
         return view('eventos.show', ['evento' => $evento]);
     }
 }
