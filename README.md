@@ -27,3 +27,8 @@ services:
       - "8080:80"
 volumes:
   mysql-data:
+
+
+adicionando um campo a uma tabela do campo
+
+php artisan make:migration add_data_to_evento_table

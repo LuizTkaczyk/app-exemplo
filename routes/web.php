@@ -19,17 +19,22 @@ use App\Http\Controllers\EventoController;
 
 // usando EventoController vindo de controllers
 Route::get('/', [EventoController::class, 'index']);
-Route::get('/eventos/criar', [EventoController::class, 'criar']);
+Route::get('/eventos/criar', [EventoController::class, 'criar'])->middleware('auth');
 Route::get('/eventos/{id}', [EventoController::class, 'show']);
 Route::post('/eventos', [EventoController::class, 'store']);
 
 Route::get('/contato', [EventoController::class, 'contato']);
 
+//acessa a dash somente se estiver autenticado
+Route::get('/dashboard', [EventoController::class, 'dashboard'])->middleware('auth');
+
+//rota para deletar um evento
+Route::delete('/eventos/{id}', [EventoController::class, 'destroy']);
 
 
 
 
-
-
-
-
+//rota exluida e movida para eventos
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');

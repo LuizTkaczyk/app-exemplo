@@ -13,14 +13,14 @@
                 <h1> {{ $evento->titulo}}</h1>
                 <p class="event-city"> <ion-icon name="location-outline"></ion-icon> {{$evento->cidade}}</p>
                 <p class="events-participants"> <ion-icon name="people-outline"></ion-icon>X Participantes</p>
-                <p class="event-owner"> <ion-icon name="star-outline"></ion-icon>Dono do evento </p>
+                <p class="event-owner"> <ion-icon name="star-outline"></ion-icon>{{ $eventOwner['name'] }} </p>
                 <a href="#" class="btn btn-primary" id="event-submit">Confirmar Presença</a>
                 <h3>O envento conta com:</h3>
                 <ul id="items-list">
 
                     {{-- Percorrendo o array de items com foreach e mostrando em uma lista --}}
                     @foreach ($evento->items as $item)
-                        <li> <ion-icon name="play-outline"></ion-icon> <span>{{ $item }}</span>  </li>
+                        <li> <ion-icon name="play-outline"></ion-icon><span>{{ $item }}</span>  </li>
                     @endforeach
 
                 </ul>

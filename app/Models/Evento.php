@@ -15,4 +15,11 @@ class Evento extends Model
         'items' => 'array'
     ];
 
+    // Informando ao laravel que tem um novo campo de data
+    protected $datas = ['data'];
+
+    public function user(){
+        return $this->belongTo('App\Models\User');
+    }
+
 }
