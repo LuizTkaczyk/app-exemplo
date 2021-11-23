@@ -76,6 +76,8 @@
                             <td><a href="/eventos/{{ $evento->id }}">{{ $evento->titulo }}</a></td>
                             <td>{{ count($evento->users) }}</td>
                             <td>
+
+                                {{-- listando os eventos e fornecendo a opção de sair deles --}}
                                 <form action="/eventos/leave/{{ $evento->id }}" method="POST">
                                     @csrf
                                     @method("DELETE")

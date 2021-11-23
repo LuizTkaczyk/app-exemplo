@@ -75,11 +75,25 @@ class EventoController extends Controller
     public function show($id){
         $evento = Evento::findOrFail($id);
 
+        //verificando se o usuario já está participando do evento
+        $user = auth()->user();
+        $hasUserJoined = false;
+
+        if($user){
+            $userEvents = $user->eventsAsParticipant->toArray();
+
+            foreach($userEvents as $userEvent){
+                if($userEvent['id']==$id){
+                    $hasUserJoined =  true;
+                } 
+            }
+        }
+
         // capturando o id do usuario logado
         $eventOwner = User::where('id', $evento->user_id)->first()->toArray();
 
         //da pasta eventos vem a view show
-        return view('eventos.show', ['evento' => $evento, 'eventOwner' => $eventOwner]);
+        return view('eventos.show', ['evento' => $evento, 'eventOwner' => $eventOwner, 'hasUserJoined' => $hasUserJoined]);
     }
     
 
@@ -111,7 +125,7 @@ class EventoController extends Controller
 
         $evento = Evento::findOrFail($id);
 
-        if($user->id != $event->user_id){
+        if($user->id != $evento->user_id){
             return redirect('/dashboard');
         }
 
